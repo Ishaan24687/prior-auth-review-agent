@@ -1,0 +1,42 @@
+model:
+  name: "gpt-4"
+  temperature: 0.1
+  max_tokens: 4096
+  # using GPT-4 here because Claude was inconsistent on drug interaction severity ratings
+  # TODO: benchmark gpt-4-turbo latency vs accuracy tradeoff
+
+decision_thresholds:
+  auto_approve_confidence: 0.85
+  auto_deny_confidence: 0.90
+  pend_threshold: 0.60
+  # anything below pend_threshold gets routed to senior pharmacist
+
+interaction_severity_weights:
+  none: 0.0
+  minor: 0.1
+  moderate: 0.4
+  severe: 1.0
+
+cost_threshold:
+  high_cost_flag_usd: 5000
+  # flag PA requests for drugs above this monthly cost for additional review
+
+tools:
+  chroma:
+    host: ${CHROMA_HOST:-localhost}
+    port: ${CHROMA_PORT:-8000}
+    collection_name: "clinical_guidelines"
+  formulary:
+    source: "hardcoded"
+    # TODO: integrate with real formulary API (FDB MedKnowledge)
+  eligibility:
+    source: "hardcoded"
+    # TODO: integrate real-time eligibility API via X12 270/271
+
+evaluation:
+  test_cases_path: "src/evaluation/test_cases.json"
+  output_dir: "eval_results"
+
+gradio:
+  server_port: 7860
+  share: false

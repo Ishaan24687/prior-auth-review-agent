@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  chromadb:
+    image: chromadb/chroma:0.5.0
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - ANONYMIZED_TELEMETRY=false
+
+  app:
+    build: .
+    ports:
+      - "7860:7860"
+    env_file:
+      - .env
+    environment:
+      - CHROMA_HOST=chromadb
+      - CHROMA_PORT=8000
+    depends_on:
+      - chromadb
+    volumes:
+      - ./src:/app/src
+
+volumes:
+  chroma_data:
