@@ -4,7 +4,7 @@
 
 ## Why I Built This
 
-I built this because at Lantern Care I watched nurse reviewers spend 15–20 minutes per prior authorization request — pulling up formulary data, cross-referencing clinical guidelines, checking drug interactions, verifying member eligibility — all before they could make a coverage decision. Multiply that by hundreds of requests per day and you start to see why PA turnaround times are measured in days, not hours.
+I built this because I watched nurse reviewers spend 15–20 minutes per prior authorization request — pulling up formulary data, cross-referencing clinical guidelines, checking drug interactions, verifying member eligibility — all before they could make a coverage decision. Multiply that by hundreds of requests per day and you start to see why PA turnaround times are measured in days, not hours.
 
 At Lantern I'd already shipped an IVR call classification system using LangChain and GPT-4 that reduced manual call routing by 40%. I applied the same agent-oriented thinking here: give an LLM access to the right tools and decision criteria, and let it handle the deterministic parts of the review so human reviewers can focus on the genuinely ambiguous cases.
 
